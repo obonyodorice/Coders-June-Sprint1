@@ -1,0 +1,106 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="mb-0">
+            <i class="bi bi-speedometer2 me-3"></i>Dashboard Overview
+        </h1>
+        <p class="mb-0 mt-2">Real-time insights and statistics</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card stat-card bg-primary text-white">
+            <div class="card-body">
+                <h6 class="text-uppercase">Total Users</h6>
+                <h2>{{ total_users }}</h2>
+                <i class="bi bi-people fs-1 opacity-50 float-end"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card stat-card bg-success text-white">
+            <div class="card-body">
+                <h6 class="text-uppercase">Total Check-ins</h6>
+                <h2>{{ total_attendances }}</h2>
+                <i class="bi bi-calendar-check fs-1 opacity-50 float-end"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card stat-card bg-warning text-dark">
+            <div class="card-body">
+                <h6 class="text-uppercase">Today's Check-ins</h6>
+                <h2>{{ today_checkins }}</h2>
+                <i class="bi bi-clock fs-1 opacity-50 float-end"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card stat-card bg-info text-dark">
+            <div class="card-body">
+                <h6 class="text-uppercase">Active Users Today</h6>
+                <h2>{{ active_users_today }}</h2>
+                <i class="bi bi-person-check fs-1 opacity-50 float-end"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">
+            <i class="bi bi-clock-history me-2"></i>Recent Check-ins
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Check-in Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in recent_checkins %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" 
+                                     style="width: 35px; height: 35px;">
+                                    {{ record.user.username|first|upper }}
+                                </div>
+                                {{ record.user.username }}
+                            </div>
+                        </td>
+                        <td>{{ record.date|date:"M d, Y" }}</td>
+                        <td>{{ record.check_in_time|time:"H:i" }}</td>
+                        <td>
+                            {% if record.status == 'checked_in' %}
+                                <span class="badge bg-success">Checked In</span>
+                            {% else %}
+                                <span class="badge bg-warning">Checked Out</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4">No recent activity</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

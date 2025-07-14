@@ -1,0 +1,122 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Attendance Records{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="mb-0">
+            <i class="bi bi-table me-3"></i>Attendance Records
+        </h1>
+        <p class="mb-0 mt-2">Browse and filter all attendance entries</p>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form class="row g-3">
+            <div class="col-md-3">
+                <input type="date" class="form-control" placeholder="From date">
+            </div>
+            <div class="col-md-3">
+                <input type="date" class="form-control" placeholder="To date">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select">
+                    <option>All Users</option>
+                    <!-- User options would be populated here -->
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search me-2"></i>Filter
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in page_obj %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-secondary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" 
+                                     style="width: 35px; height: 35px;">
+                                    {{ record.user.username|first|upper }}
+                                </div>
+                                {{ record.user.username }}
+                            </div>
+                        </td>
+                        <td>{{ record.date|date:"M d, Y" }}</td>
+                        <td>{{ record.check_in_time|time:"H:i" }}</td>
+                        <td>
+                            {% if record.check_out_time %}
+                                {{ record.check_out_time|time:"H:i" }}
+                            {% else %}
+                                <span class="text-muted">--:--</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if record.status == 'checked_in' %}
+                                <span class="badge bg-info">Checked In</span>
+                            {% else %}
+                                <span class="badge bg-warning">Checked Out</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4">No records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo; First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+                
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+                
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
