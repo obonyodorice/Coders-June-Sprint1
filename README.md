@@ -1,26 +1,87 @@
-# June Sprint 1
+# Coders - June Sprint 1
+
+A Django-based project developed to implement a simple user management and attendance tracking system with API support. This system is designed with two primary user types—**Staff** and **Community Members**—and supports daily sign-in/sign-out functionalities.
+
+---
+
+## Project Overview
+
+This project aims to provide a foundational backend system where:
+
+- **Community members** can check in and out daily.
+- **Staff users** can manage attendance and oversee the system via the Django admin panel.
+- APIs are exposed to support frontend integration for sign-ins and check-outs.
+
+The project is divided into three main Django apps:
+
+- `users` – Custom user model with roles
+- `attendance` – Daily check-in and check-out system
+- `dashboard` – (Optional/Bonus) Admin or insights dashboard
+
+---
+
+## Tech Stack
+
+- **Backend**: Django 4.x
+- **Language**: Python 3.10+
+- **Database**: SQLite (default)
+- **API**: Django REST Framework *(recommended)*
+- **Testing**: Django built-in test suite
+
+---
+
+## 📂 Project Structure
+coders-june-sprint1/
+│
+├── core/ # Django project root
+├── users/ # App for custom user management
+├── attendance/ # App for attendance check-in/checkout
+├── dashboard/ # Optional app for stats or admin views
+├── manage.py
+└── requirements.txt
 
 
-## Contributing Guidelines:
+---
 
-1. Fork the Repo and rename it with your group name, use the naming convention: `<group_name>-june-sprint-1`
-2. After the first step, share the forked repo to your group members and let them fork/clone from there
-3. Clone the repo
-4. For the group lead, Create a Branch with the following naming convection: `<group_name>-dev-patch`
-5. All changes should be pushed to the branch created on step 2, and a pull request to the main branch for code review
+##  Features
 
-## Sprint 1:
+## Users App
+- Two user roles: **Staff** and **Community Member**
+- Staff can access Django admin
+- Community users can register, sign in, and check in/out
 
-### Creating a Django App:
+## Attendance App
+- Check-in and check-out endpoints for daily attendance
+- Attendance model using fields from the provided daily sign-in form
+- Time-stamped records per user
 
-Follow the steps below:
+## Dashboard (Optional)
+- Views or endpoints for stats and summaries (e.g., number of check-ins per day)
 
-1. Create a virtual environment, make sure you are using python version 3.10 and above
-2. Create a Django Project(of course).
-3. Your Django project should have 2 Apps: users and attendance.
-4. For the Users App, have 2 user types: staff and community members - Staff can access an admin, and community can just sign in and checkout.
-5. Use the daily sign-in form to get fields for the attendance app.
-6. Create APIS that can be consumed on the frontend: enable erveryone to checkin and checkout everyday
-7. Write tests for your Apps and APIs
+---
 
-wait for instructions
+## Local Setup Instructions
+
+## 1. Clone the Project
+
+git clone https://github.com/obonyodorice/Coders-June-Sprint1.git
+cd `Coders-June-Sprint1`
+
+```python -m venv venv
+source venv/bin/activate```
+
+```
+pip install -r requirements.txt
+```
+
+```
+python manage.py migrate
+```
+
+```
+python manage.py createsuperuser
+```
+
+```
+python manage.py runserver
+```
