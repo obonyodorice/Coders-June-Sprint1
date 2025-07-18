@@ -67,15 +67,19 @@ coders-june-sprint1/
 git clone https://github.com/obonyodorice/Coders-June-Sprint1.git
 cd `Coders-June-Sprint1`
 
-```
+```bash
     python -m venv venv
     source venv/bin/activate
-
-``` pip install -r requirements.txt
-
-``` python manage.py migrate
-
-``` python manage.py createsuperuser
-
-``` python manage.py runserver
-
+```
+```bash
+    pip install -r requirements.txt
+```
+```bash
+    python manage.py migrate
+```
+```bash
+    python manage.py createsuperuser
+```
+```bash
+    python manage.py runserver
+```
