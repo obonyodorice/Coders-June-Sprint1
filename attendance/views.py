@@ -11,9 +11,7 @@ class CheckInView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        """
-        User checks in by providing role and department.
-        """
+
         serializer = AttendanceSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -45,9 +43,7 @@ class CheckOutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        """
-        User checks out, optionally updating role and department.
-        """
+
         today = timezone.now().date()
         try:
             attendance = Attendance.objects.get(user=request.user, date=today)
@@ -63,7 +59,6 @@ class CheckOutView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Update optional fields
         role = request.data.get('role')
         department = request.data.get('department')
         if role:
