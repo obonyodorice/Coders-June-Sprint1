@@ -1,4 +1,3 @@
-# users/serializers.py
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
@@ -44,7 +43,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         # Remove password_confirm from validated_data
         validated_data.pop('password_confirm', None)
         
-        # Create user using create_user method (handles password hashing)
         user = CustomUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
