@@ -1,4 +1,3 @@
-# users/views.py
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,9 +17,7 @@ from .serializers import (
 
 
 class RegisterAPIView(APIView):
-    """
-    Register a new user and return user data without tokens
-    """
+ 
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -50,9 +47,7 @@ class RegisterAPIView(APIView):
 
 
 class LoginAPIView(APIView):
-    """
-    Authenticate user and return user data with JWT tokens
-    """
+
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -88,9 +83,7 @@ class LoginAPIView(APIView):
 
 
 class LogoutAPIView(APIView):
-    """
-    Logout user by blacklisting their refresh token
-    """
+
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -119,9 +112,7 @@ class LogoutAPIView(APIView):
 
 
 class TokenRefreshAPIView(APIView):
-    """
-    Refresh JWT access token using refresh token
-    """
+
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -146,9 +137,7 @@ class TokenRefreshAPIView(APIView):
 
 
 class UserDetailAPIView(APIView):
-    """
-    Get current user's profile information
-    """
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -165,9 +154,7 @@ class UserDetailAPIView(APIView):
 
 
 class UserProfileUpdateAPIView(APIView):
-    """
-    Update current user's profile information
-    """
+
     permission_classes = [IsAuthenticated]
 
     def put(self, request):
@@ -198,9 +185,7 @@ class UserProfileUpdateAPIView(APIView):
 
 
 class UserListAPIView(APIView):
-    """
-    Get list of all users (staff only)
-    """
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
